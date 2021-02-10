@@ -31,8 +31,8 @@ const Card = (props) => {
                         }}
                     >
                         <Text style={{
-                            fontSize: 20,
-                            width: Dimensions.get("screen").width - 50,
+                            fontSize: 18,
+                            width: Dimensions.get("screen").width - 60,
                             color: textcolor
                         }}
                             ellipsizeMode="tail"

@@ -13,10 +13,9 @@ export default function Header({ height }) {
   return (
     <View
       style={{
-        //marginTop: 2,
-         //position:"absolute",
-       
-       // top:0,
+        //marginBottom: 20,
+        //position:'absolute',
+        top:0,
         left:0,
         right:0,
         height: 45,
