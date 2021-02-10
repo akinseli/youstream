@@ -2,17 +2,23 @@ import React,{useState} from 'react';
 import { StyleSheet, Text, View,ScrollView,TextInput,FlatList,ActivityIndicator,Animated} from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import MiniCard from '../components/MiniCard';
-// import MiniCard from '../components/MiniCard'
-// import {useTheme} from '@react-navigation/native'
-// import {useSelector,useDispatch} from 'react-redux'
+import {useTheme} from '@react-navigation/native'
+import {useSelector,useDispatch} from 'react-redux'
 
 //GET https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&q=songs&type=video&key=[AIzaSyAsqCyHadbHxiEZ4OyfwcrlinixgqZtYvw]
 
 
 
-const SearchScreen = ()=>{
+const SearchScreen = ({navigation})=>{
+     const {colors}= useTheme()
+    const mycolor = colors.iconColor
+
    const [value,setValue] = useState("")
-   const [miniCardData,setMiniCard] = useState([])
+//    const [miniCardData,setMiniCard] = useState([])
+const dispatch = useDispatch()
+const miniCardData = useSelector(state=>{
+    return state.cardData
+})
    const [loading,setLoading] = useState(false)
    const fetchData = () =>{
     fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&q=${value}&type=video&key=AIzaSyAsqCyHadbHxiEZ4OyfwcrlinixgqZtYvw`)
@@ -20,8 +26,8 @@ const SearchScreen = ()=>{
     .then(data=>{
 
         setLoading(false)
-        // dispatch({type:"add",payload:data.items})
-        setMiniCard(data.items)
+        dispatch({type:"add",payload:data.items})
+        // setMiniCard(data.items)
     })
 }
   return(
@@ -34,13 +40,14 @@ const SearchScreen = ()=>{
               flexDirection:"row",
               justifyContent:"space-around",
               elevation:5,
-             backgroundColor:"white",
+             backgroundColor:colors.headerColor,
             alignItems:'center'
         
           }}>
              <MaterialIcons
-             style={{color:'grey'}}
+             style={{color:mycolor}}
              name="arrow-back" size={32}
+             onPress={()=>navigation.goBack()}
              />
              <TextInput
              style={{
@@ -51,7 +58,7 @@ const SearchScreen = ()=>{
              onChangeText={(text)=>setValue(text)}
  />
              <MaterialIcons
-             style={{color:'grey'}}
+             style={{color:mycolor}}
              name="send"
              size={32}
              onPress={()=>fetchData()}

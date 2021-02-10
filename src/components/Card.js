@@ -1,17 +1,20 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, Dimensions, TouchableOpacity } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
-
+import { useNavigation, useTheme } from '@react-navigation/native';
 
 const Card = (props) => {
-
+    const navigation = useNavigation();
+    const {colors}= useTheme()
+    const textcolor = colors.iconColor
     return (
+        
         <TouchableOpacity
-        //onPress={()=>navigation.navigate("videoplayer",{videoId:props.videoId,title:props.title})} 
+        onPress={()=>navigation.navigate("videoplayer",{videoId:props.videoId,title:props.title})} 
         >
-            <View style={{ marginBottom: 10 }}>
+            <View style={{ marginBottom: 10}}>
                 <Image
-                    source={{ uri: "https://images.unsplash.com/photo-1499088513455-78ed88b7a5b4?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=671&q=80" }}
+                    source={{ uri:`https://i.ytimg.com/vi/${props.videoId}/hqdefault.jpg` }}
                     style={{
                         width: "100%",
                         height: 200
@@ -30,16 +33,13 @@ const Card = (props) => {
                         <Text style={{
                             fontSize: 20,
                             width: Dimensions.get("screen").width - 50,
-                            textcolor: "grey"
-
+                            color: textcolor
                         }}
                             ellipsizeMode="tail"
                             numberOfLines={2}
                         >{props.title}</Text>
                         <Text style={{
-                            textcolor: "grey"
-
-
+                            color:textcolor
                         }}>{props.channel}</Text>
                     </View>
 
